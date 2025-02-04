@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لیست مشاغل</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+    <div class="container">
+        <div class="job-box">
+            <form method="get" action="" class="search-form">
+                <input type="text" name="search" placeholder="جستجو کنید..." value="{{ search_query }}">
+                <button type="submit">جستجو</button>
+            </form>
+
+            {% if search_query %}
+                <div class="back-to-home">
+                    <a href="{% url 'job_list' %}" class="btn-back">برگشت به صفحه اصلی</a>
+                </div>
+            {% endif %}
+
+            <div class="job-header">
+                <div class="job-title">پوزیشن شغلی</div>
+                <div class="job-company">نام شرکت</div>
+                <div class="job-link">لینک</div>
+            </div>
+
+            {% for job in jobs %}
+                <div class="job-item">
+                    <div class="job-title">
+                        <span>{{ job.title }}</span> 
+                    </div>
+                    <div class="job-company">
+                        <span>{{ job.company_name }}</span> 
+                    </div>
+                    <div class="job-link">
+                        <a href="{{ job.link }}" class="btn">کلیک کنید</a> 
+                    </div>
+                </div>
+            {% empty %}
+                <p>شغلی یافت نشد.</p>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>
