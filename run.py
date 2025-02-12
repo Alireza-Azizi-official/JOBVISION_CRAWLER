@@ -1,14 +1,18 @@
 import subprocess  
-import os 
+import os  
 
 # Define the path to activate the virtual environment on Windows
 env_path = os.path.join('myenv', 'Scripts', 'activate.bat')
 
-# List of commands to run: start Django server, run Celery worker, and run Celery beat
+# Define the path to Redis server executable
+redis_path = r"C:\Redis-x64-3.0.504\redis-server.exe"
+
+# List of commands to run: start Redis, start Django server, run Celery worker, and run Celery beat
 commands = [
-    f'call {env_path} && python manage.py runserver',  # Command to start Django development server
-    f'call {env_path} && celery -A jobs.celery worker --loglevel=info',  # Command to start Celery worker
-    f'call {env_path} && celery -A jobs beat --loglevel=info'  # Command to start Celery beat
+    f'start "" "{redis_path}"',  # Start Redis server in a new window
+    f'call {env_path} && python manage.py runserver',  # Start Django development server
+    f'call {env_path} && python -m celery -A jobs.celery worker --loglevel=info',  # Start Celery worker
+    f'call {env_path} && python -m celery -A jobs beat --loglevel=info'  # Start Celery beat
 ]
 
 # List to keep track of the processes

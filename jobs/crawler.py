@@ -53,7 +53,7 @@ def scrape_jobs():
         company_name_list.extend([name.get_text(strip=True) for name in all_company_name])
 
     # Combine the job titles, company names, and links into tuples, slice the data to get specific entries (19 to 29) you can change it to get all the cards
-    zipped_data = list(zip(titles_list, company_name_list, link_list))[19:29]
+    zipped_data = list(zip(titles_list, company_name_list, link_list))[0:10]
 
     jobs = []
     # For each job entry, check if it already exists in the database, if not, create a new job entry
